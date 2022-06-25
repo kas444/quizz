@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Progress } from './components/Progress';
+import { Progress } from '../../components/Progress';
 // import { Button } from './components/Button';
 // import { Question } from '../Question';
 import { useSelector } from 'react-redux';

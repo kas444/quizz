@@ -1,17 +1,21 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from '../redux/counterSlice';
+import { quizActions } from '../redux/quizSlice';
 
 export default function Counter() {
-  const { count } = useSelector((state) => state.counter);
+  const { currentQuestion } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
 
   return (
     <div>
       <div>
-        <button onClick={() => dispatch(increment())}>Increment</button>
-        <span>{count}</span>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
+        <button onClick={() => dispatch(quizActions.goNext())}>
+          Increment
+        </button>
+        <span>{currentQuestion}</span>
+        <button onClick={() => dispatch(quizActions.goNext())}>
+          Decrement
+        </button>
       </div>
     </div>
   );

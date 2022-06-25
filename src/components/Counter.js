@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../redux/quizSlice';
 
-export default function Counter() {
+export const Counter = () => {
   const { currentQuestion } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
 
@@ -19,4 +19,4 @@ export default function Counter() {
       </div>
     </div>
   );
-}
+};

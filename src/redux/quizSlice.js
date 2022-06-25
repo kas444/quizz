@@ -41,7 +41,6 @@ export const quizSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const quizActions = quizSlice.actions;
 
 export default quizSlice.reducer;

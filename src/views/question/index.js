@@ -4,8 +4,9 @@ import { Progress } from '../../components/Progress';
 // import { Button } from './components/Button';
 // import { Question } from '../Question';
 import { useSelector } from 'react-redux';
+import { Counter } from './components/Counter';
 
-const QuestionView = () => {
+export const QuestionView = () => {
   const { totalLength, currentQuestion } = useSelector((state) => state.quiz);
   // const selectAnswer = (selectedId) => {
 
@@ -26,9 +27,8 @@ const QuestionView = () => {
 
   return (
     <>
+      <Counter />
       <Progress currentQuestion={currentQuestion} totalLength={totalLength} />
     </>
   );
 };
-
-export default QuestionView;

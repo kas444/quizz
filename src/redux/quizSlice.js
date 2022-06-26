@@ -10,6 +10,7 @@ const initialState = {
   isCompleted: false,
   answers: [],
   currentQuestion: 1,
+  selectedAnswer: null
 };
 
 export const quizSlice = createSlice({
@@ -22,11 +23,15 @@ export const quizSlice = createSlice({
       state.answers = [];
       state.currentQuestion = 1;
     },
+    incrementScore: (state) => {
+      state.score = state.score + 1
+    },
     completeQuiz: (state) => {
       state.isCompleted = true;
     },
-    goNext: (state) => {
+    goNext: (state, action) => {
       state.currentQuestion += 1;
+      state.selectedAnswer = null;
     },
     addAnswers: (state, action) => {
       state.answers = [...state.answers, action.payload];
@@ -38,6 +43,9 @@ export const quizSlice = createSlice({
       state.options = QUESTION.options;
       state.correct = QUESTION.correct;
     },
+    selectAnswer: (state, action) => {
+      state.selectedAnswer = action.payload
+    }
   },
 });
 

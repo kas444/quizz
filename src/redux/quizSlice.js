@@ -22,6 +22,7 @@ export const quizSlice = createSlice({
       state.isCompleted = false;
       state.answers = [];
       state.currentQuestion = 1;
+      state.selectedAnswer = null;
     },
     incrementScore: (state) => {
       state.score = state.score + 1

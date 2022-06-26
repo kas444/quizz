@@ -53,7 +53,11 @@ export const QuestionView = () => {
             <div>
               <div>{question}</div>
               <Question key={currentQuestion} />
-              <Button onClick={() => selectAnswer(selectedAnswer)}>dalej</Button>
+              <div className="row"></div>
+              <div className="d-flex justify-content-between">
+                <Button className="btn btn-secondary">wstecz</Button>
+                <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>dalej</Button>
+              </div>
             </div>
           )}
         </div>

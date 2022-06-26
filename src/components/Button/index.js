@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Button({ children, className = 'btn btn-primary', onClick }) {
+export function Button({ children, className, onClick, }) {
   return (
     <button
       // style={{

@@ -31,6 +31,7 @@ export const quizSlice = createSlice({
     },
     goNext: (state, action) => {
       state.currentQuestion += 1;
+      state.selectedAnswer = null;
     },
     addAnswers: (state, action) => {
       state.answers = [...state.answers, action.payload];

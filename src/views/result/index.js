@@ -16,6 +16,11 @@ export const ResultView = () => {
 
   const dispatch = useDispatch();
 
+  const startQuiz = () => {
+    dispatch(quizActions.initializeQuiz());
+    dispatch(quizActions.setQuestion(0));
+  };
+
   return (
     <>
       <div className="row justify-content-center">
@@ -73,9 +78,10 @@ export const ResultView = () => {
 
               <button
                 className="btn btn-primary mt-3"
-                onClick={() => dispatch(quizActions.initializeQuiz())}
+                onClick={() => startQuiz()}
               >
-                {/* <Emoji text=":rocket:" /> Start again */}
+                {/* <Emoji text=":rocket:" /> */}
+                Nowy quiz
               </button>
             </div>
           )}

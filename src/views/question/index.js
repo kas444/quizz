@@ -17,16 +17,9 @@ export const QuestionView = () => {
     currentQuestion,
     isCompleted,
     question,
-    correct
+    correct,
+    selectedAnswer
   } = useSelector((state) => state.quiz);
-
-  console.log({
-    totalLength,
-    currentQuestion,
-    isCompleted,
-    question,
-    correct
-  })
 
   const dispatch = useDispatch();
 
@@ -59,16 +52,8 @@ export const QuestionView = () => {
           {!isCompleted && (
             <div>
               <div>{question}</div>
-              <Question selectAnswer={selectAnswer} key={currentQuestion} />
-              <Button>next</Button>
-              {/* <button
-                onClick={() => {
-                  this.props.goNext();
-                  this.props.setQuestion();
-                }}
-              >
-                next
-              </button> */}
+              <Question key={currentQuestion} />
+              <Button onClick={() => selectAnswer(selectedAnswer)}>dalej</Button>
             </div>
           )}
         </div>

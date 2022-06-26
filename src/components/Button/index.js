@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Button({ children, className = 'btn btn-primary' }) {
+export function Button({ children, className = 'btn btn-primary', onClick }) {
   return (
     <button
       // style={{
@@ -9,6 +9,7 @@ export function Button({ children, className = 'btn btn-primary' }) {
       //   backgroundColor: 'white',
       // }}
       className={className}
+      onClick={onClick}
     >
       {children}
     </button>

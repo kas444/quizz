@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isCompleted: false,
   score: 0,
-  index: 0,
   quizData: [],
   selectedAnswer: null,
   currentQuestionId: null,
@@ -17,9 +16,8 @@ export const quizSlice = createSlice({
     initializeQuiz: (state, action) => {
       state.score = 0;
       state.isCompleted = false;
-      state.index = 0;
       state.quizData = action.payload;
-      state.currentQuestionId = state.quizData[state.index].questionId;
+      state.currentQuestionId = action.payload[0].questionId;
       state.selectedAnswer = null;
       state.questionsAsked = 1;
     },
@@ -33,8 +31,8 @@ export const quizSlice = createSlice({
       state.quizData = action.payload;
     },
     goNext: (state) => {
-      state.index += 1;
-      state.currentQuestionId += state.quizData[state.index].questionId;
+      const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
+      state.currentQuestionId = state.quizData[index + 1].questionId;
       state.selectedAnswer = null;
       state.questionsAsked += 1;
     },

@@ -16,6 +16,7 @@ export const QuestionView = () => {
 
   const {
     isCompleted,
+    index,
     quizData,
     selectedAnswer,
     currentQuestionId,
@@ -25,8 +26,8 @@ export const QuestionView = () => {
   const dispatch = useDispatch();
 
   const startQuiz = () => {
-    const data = QUESTIONS.map(question => ({ questionId: question.id, answerId: null }));
-    dispatch(quizActions.initializeQuiz(shuffle(data)));
+    const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
+    dispatch(quizActions.initializeQuiz(data));
   };
 
   const selectAnswer = (selectedId) => {

@@ -4,20 +4,23 @@ import QUESTIONS from '../../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../../redux/quizSlice';
 
-export const Question = ({ questionId }) => {
-  const { selectedAnswer } = useSelector((state) => state.quiz);
+export const Question = () => {
+
+  const { currentQuestionId, selectedAnswer } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
 
-  const question = QUESTIONS.find(question => question.id === questionId);
+  if (!currentQuestionId) { return null; }
+
+  const question = QUESTIONS.find(question => question.id === currentQuestionId);
 
   return (
     <>
       <div>{question.question}</div>
       <div className="list-group">
-        {question.options.map(({ id, label }) => (
+        {question.options.map(({ id, label }, idx) => (
           <button
-            key={id}
-            onClick={() => dispatch(quizActions.selectAnswer(id))}
+            key={idx}
+            onClick={() => { dispatch(quizActions.selectAnswer({ id })) }}
             className={`
             list-group-item list-group-item-action
             ${selectedAnswer === id ? "active" : ""}

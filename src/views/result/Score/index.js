@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import QUESTIONS from '../../../api/data';
 import { useSelector } from 'react-redux';
 
 export const Score = () => {
 
-    const { score, totalLength } = useSelector((state) => state.quiz);
+    const { score } = useSelector((state) => state.quiz);
 
     return (
         <p className="h4">
-            {/* <Emoji text=":sparkles:" /> */}
+            <span role="img" aria-label="score">😎</span>
             <span>Your score is: </span>
             <span className="text-info">
-                {Math.round((score / totalLength) * 1000) / 10}%
+                {Math.round((score / QUESTIONS.length) * 1000) / 10}%
             </span>
             <span>
-                ({score} / {totalLength})
+                ({score} / {QUESTIONS.length})
             </span>
         </p>
     );

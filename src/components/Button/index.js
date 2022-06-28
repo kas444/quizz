@@ -8,7 +8,7 @@ export function Button({ children, className, onClick, }) {
       //   fontSize: '30px',
       //   backgroundColor: 'white',
       // }}
-      className={className}
+      className={`button ${className}`}
       onClick={onClick}
     >
       {children}

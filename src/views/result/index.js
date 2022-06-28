@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 
 import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../api/data';
+import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 import { Score } from './Score';
+import { Result } from './Result';
 
 export const ResultView = () => {
 
-  const {
-    score,
-    isCompleted,
-    quizData,
-  } = useSelector((state) => state.quiz);
+  const { isCompleted } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
 
@@ -28,61 +26,15 @@ export const ResultView = () => {
 
           {isCompleted && (
             <div>
-              <Score score={score} totalLength={QUESTIONS.length} />
-
-              <div>
-                {questions.map((qq, index) => {
-                  const isCorrect = qq.correct === answers[index];
-                  return (
-                    <div key={index} className="card mt-3">
-                      <div className="card-header">
-                        Q{qq.id}: {qq.question}
-                      </div>
-                      <div className="card-body">
-                        <div>
-                          {qq.options.map((x, index) => (
-                            <li
-                              key={index}
-                              className={
-                                qq.correct === index && "text-success"
-                              }
-                            >
-                              {x}
-                            </li>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div
-                        className={
-                          "card-footer text-white " +
-                          (isCorrect ? "bg-success" : "bg-danger")
-                        }
-                      >
-                        {isCorrect ? (
-                          <div>
-                            {/* <Emoji text=":smile:" /> */}
-                            Correct
-                          </div>
-                        ) : (
-                          <div>
-                            {/* <Emoji text=":disappointed:" /> */}
-                            Your answer: {qq.options[answers[index]]}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <button
+              <Score />
+              <Result />
+              <Button
                 className="btn btn-primary mt-3"
                 onClick={() => startQuiz()}
               >
-                {/* <Emoji text=":rocket:" /> */}
+                <span role="img" aria-label="rocket">🚀</span>
                 Nowy quiz
-              </button>
+              </Button>
             </div>
           )}
         </div>

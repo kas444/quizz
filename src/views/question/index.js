@@ -58,21 +58,28 @@ export const QuestionView = () => {
           <Progress question={questionsAsked} quizLength={QUESTIONS.length} />
           <div className="row justify-content-center">
             <div className="col-lg-8 col-md-10 col-sm-12">
+
               <Question />
+
               <div className="row"></div>
               <div className="d-flex justify-content-between">
+
                 {questionsAsked === 1 && (
                   <Button className="btn btn-secondary disabled" aria-disabled="true">wstecz</Button>
                 )}
+
                 {questionsAsked != 1 && (
                   <Button className="btn btn-primary">wstecz</Button>
                 )}
+
                 {questionsAsked === QUESTIONS.length && (
                   <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>zakończ quiz</Button>
                 )}
+
                 {questionsAsked != QUESTIONS.length && (
                   <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>dalej</Button>
                 )}
+
               </div>
             </div>
           </div>

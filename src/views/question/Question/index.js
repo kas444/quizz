@@ -15,7 +15,7 @@ export const Question = () => {
 
   return (
     <>
-      <div>{question.question}</div>
+      <div className="question">{question.question}</div>
       <div className="list-group">
         {question.options.map(({ id, label }, idx) => (
           <button

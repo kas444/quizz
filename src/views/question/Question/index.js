@@ -1,32 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 
+import QUESTIONS from '../../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../../redux/quizSlice';
-//import QUESTION from '../../../api/data';
 
 export const Question = () => {
 
-  // const question = QUESTION.find()[id];
-
-  // console.log({ question });
-
-  const { options, selectedAnswer } = useSelector((state) => state.quiz);
+  const { currentQuestionId, selectedAnswer } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
 
+  if (!currentQuestionId) { return null; }
+
+  const question = QUESTIONS.find(question => question.id === currentQuestionId);
+
   return (
-    <div className="list-group">
-      {options.map((answer, idx) => (
-        <button
-          key={idx}
-          onClick={() => dispatch(quizActions.selectAnswer(idx))}
-          className={`
+    <>
+      <div>{question.question}</div>
+      <div className="list-group">
+        {question.options.map(({ id, label }, idx) => (
+          <button
+            key={idx}
+            onClick={() => { dispatch(quizActions.selectAnswer({ id })) }}
+            className={`
             list-group-item list-group-item-action
-            ${selectedAnswer === idx ? "active" : ""}
+            ${selectedAnswer === id ? "active" : ""}
           `}
-        >
-          {answer}
-        </button>
-      ))}
-    </div>
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </>
   );
 };

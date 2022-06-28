@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import shuffle from 'lodash/shuffle';
+import QUESTIONS from '../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 import { Score } from './Score';
@@ -7,18 +9,16 @@ import { Score } from './Score';
 export const ResultView = () => {
 
   const {
-    totalLength,
     score,
     isCompleted,
-    questions,
-    answers
+    quizData,
   } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
 
   const startQuiz = () => {
-    dispatch(quizActions.initializeQuiz());
-    dispatch(quizActions.setQuestion(0));
+    const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
+    dispatch(quizActions.initializeQuiz(data));
   };
 
   return (
@@ -28,7 +28,7 @@ export const ResultView = () => {
 
           {isCompleted && (
             <div>
-              <Score score={score} totalLength={totalLength} />
+              <Score score={score} totalLength={QUESTIONS.length} />
 
               <div>
                 {questions.map((qq, index) => {

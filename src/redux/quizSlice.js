@@ -1,52 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
-import QUESTIONS from '../api/data';
 
 const initialState = {
   isCompleted: false,
-  options: [],
-  totalLength: QUESTIONS.length,
-  questions: QUESTIONS,
   score: 0,
-  isCompleted: false,
-  answers: [],
-  currentQuestion: 1,
-  selectedAnswer: null
+  quizData: [],
+  selectedAnswer: null,
+  currentQuestionId: null,
+  questionsAsked: 0,
 };
 
 export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
-    initializeQuiz: (state) => {
+    initializeQuiz: (state, action) => {
       state.score = 0;
       state.isCompleted = false;
-      state.answers = [];
-      state.currentQuestion = 1;
+      state.quizData = action.payload;
+      state.currentQuestionId = action.payload[0].questionId;
       state.selectedAnswer = null;
+      state.questionsAsked = 1;
+    },
+    selectAnswer: (state, action) => {
+      state.selectedAnswer = action.payload.id;
     },
     incrementScore: (state) => {
       state.score = state.score + 1
     },
+    addAnswer: (state, action) => {
+      state.quizData = action.payload;
+    },
+    goNext: (state) => {
+      const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
+      state.currentQuestionId = state.quizData[index + 1].questionId;
+      state.selectedAnswer = null;
+      state.questionsAsked += 1;
+    },
     completeQuiz: (state) => {
       state.isCompleted = true;
     },
-    goNext: (state, action) => {
-      state.currentQuestion += 1;
-      state.selectedAnswer = null;
-    },
-    addAnswers: (state, action) => {
-      state.answers = [...state.answers, action.payload];
-    },
-    setQuestion: (state) => {
-      const QUESTION = QUESTIONS[state.currentQuestion - 1];
-      state.currentQuestion = QUESTION.id;
-      state.question = QUESTION.question;
-      state.options = QUESTION.options;
-      state.correct = QUESTION.correct;
-    },
-    selectAnswer: (state, action) => {
-      state.selectedAnswer = action.payload
-    }
   },
 });
 

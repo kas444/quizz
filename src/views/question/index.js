@@ -16,7 +16,6 @@ export const QuestionView = () => {
 
   const {
     isCompleted,
-    index,
     quizData,
     selectedAnswer,
     currentQuestionId,
@@ -30,16 +29,19 @@ export const QuestionView = () => {
     dispatch(quizActions.initializeQuiz(data));
   };
 
-  const selectAnswer = (selectedId) => {
-    // if (selectedId === correct) {
-    //   dispatch(quizActions.incrementScore());
-    // }
+  const selectAnswer = (selectedAnswerId) => {
 
     const updatedQuizData = quizData.map(item => item.questionId === currentQuestionId ? {
       questionId: currentQuestionId,
       answerId: selectedAnswer
     } : item);
     dispatch(quizActions.addAnswer(updatedQuizData));
+
+    const correctAnswerId = QUESTIONS.filter(item => item.id === currentQuestionId)[0].correctOptionId;
+
+    if (selectedAnswerId === correctAnswerId) {
+      dispatch(quizActions.incrementScore());
+    }
 
     if (questionsAsked === QUESTIONS.length) {
       dispatch(quizActions.completeQuiz());
@@ -66,9 +68,11 @@ export const QuestionView = () => {
                   <Button className="btn btn-primary">wstecz</Button>
                 )}
                 {questionsAsked === QUESTIONS.length && (
-                  <Button className="btn btn-success">zakończ quiz</Button>
+                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>zakończ quiz</Button>
                 )}
-                <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>dalej</Button>
+                {questionsAsked != QUESTIONS.length && (
+                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>dalej</Button>
+                )}
               </div>
             </div>
           </div>

@@ -25,7 +25,7 @@ export const Result = () => {
                                         <li
                                             key={index}
                                             className={
-                                                question.correctOptionId === id && "text-success"
+                                                question.correctOptionId === id ? "text-success" : ""
                                             }
                                         >
                                             {label}

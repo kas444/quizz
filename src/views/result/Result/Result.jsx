@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import QUESTIONS from '../../../api/data';
 import { useSelector } from 'react-redux';
 
 export const Result = () => {
+
+    useEffect(() => {
+
+    }, [isCorrect]);
 
     const { quizData } = useSelector((state) => state.quiz);
 

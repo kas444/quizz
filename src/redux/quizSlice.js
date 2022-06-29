@@ -30,11 +30,17 @@ export const quizSlice = createSlice({
     addAnswer: (state, action) => {
       state.quizData = action.payload;
     },
-    goNext: (state) => {
+    goNext: (state, action) => {
       const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
       state.currentQuestionId = state.quizData[index + 1].questionId;
-      state.selectedAnswer = null;
+      state.selectedAnswer = state.quizData[index + 1].answerId;
       state.questionsAsked += 1;
+    },
+    goBack: (state, action) => {
+      const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
+      state.currentQuestionId = state.quizData[index - 1].questionId;
+      state.selectedAnswer = action.payload;
+      state.questionsAsked -= 1;
     },
     completeQuiz: (state) => {
       state.isCompleted = true;

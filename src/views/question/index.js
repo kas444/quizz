@@ -29,7 +29,7 @@ export const QuestionView = () => {
     dispatch(quizActions.initializeQuiz(data));
   };
 
-  const selectAnswer = (selectedAnswerId) => {
+  const goToNextQuestion = (selectedAnswerId) => {
 
     const updatedQuizData = quizData.map(item => item.questionId === currentQuestionId ? {
       questionId: currentQuestionId,
@@ -51,6 +51,16 @@ export const QuestionView = () => {
     }
   };
 
+  const returnToPreviousQuestion = () => {
+
+    const index = quizData.findIndex((i) => i.questionId === currentQuestionId)
+
+    const chosenAnswer = quizData[index - 1].answerId;
+
+    dispatch(quizActions.goBack(chosenAnswer));
+  };
+
+
   return (
     <>
       {!isCompleted && (
@@ -69,15 +79,15 @@ export const QuestionView = () => {
                 )}
 
                 {questionsAsked != 1 && (
-                  <Button className="btn btn-primary">wstecz</Button>
+                  <Button className="btn btn-primary" onClick={() => returnToPreviousQuestion()}>wstecz</Button>
                 )}
 
                 {questionsAsked === QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>zakończ quiz</Button>
+                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? goToNextQuestion(selectedAnswer) : null}>zakończ quiz</Button>
                 )}
 
                 {questionsAsked != QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? selectAnswer(selectedAnswer) : null}>dalej</Button>
+                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? goToNextQuestion(selectedAnswer) : null}>dalej</Button>
                 )}
 
               </div>

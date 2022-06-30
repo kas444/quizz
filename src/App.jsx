@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
-import { QuestionView } from './views/question';
-import { ResultView } from './views/result';
+import { TestView } from './views/test';
+import { SummaryView } from './views/testSummary';
 
 export default function App() {
 
@@ -13,8 +13,8 @@ export default function App() {
         </header>
 
         <main className="container mb-4">
-          <QuestionView />
-          <ResultView />
+          <TestView />
+          <SummaryView />
         </main>
       </div>
     </>

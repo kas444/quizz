@@ -8,7 +8,7 @@ import { Question } from './Question';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 
-export const QuestionView = () => {
+export const TestView = () => {
 
   useEffect(() => {
     startQuiz();

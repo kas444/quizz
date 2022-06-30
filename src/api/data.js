@@ -6,19 +6,19 @@ export default [
     options: [
       {
         id: 1,
-        label: '<script>',
+        label: '1.<script>',
       },
       {
         id: 2,
-        label: '<javascript>',
+        label: '2.<javascript>',
       },
       {
         id: 3,
-        label: '<js>',
+        label: '3.<js>',
       },
       {
         id: 4,
-        label: '<scripting>',
+        label: '4.<scripting>',
       },
     ],
   },
@@ -29,19 +29,19 @@ export default [
     options: [
       {
         id: 1,
-        label: 'browser.name',
+        label: '1.browser.name',
       },
       {
         id: 2,
-        label: 'client.navName',
+        label: '2.client.navName',
       },
       {
         id: 3,
-        label: 'navigator.appName',
+        label: '3.navigator.appName',
       },
       {
         id: 4,
-        label: 'navigator.navName',
+        label: '4.navigator.navName',
       },
     ],
   },
@@ -52,19 +52,19 @@ export default [
     options: [
       {
         id: 1,
-        label: 'rnd(7.25)',
+        label: '1.rnd(7.25)',
       },
       {
         id: 2,
-        label: 'Math.round(7.25)',
+        label: '2.Math.round(7.25)',
       },
       {
         id: 3,
-        label: 'round(7.25)',
+        label: '3.round(7.25)',
       },
       {
         id: 4,
-        label: 'Math.rnd(7.25)',
+        label: '4.Math.rnd(7.25)',
       },
     ],
   },

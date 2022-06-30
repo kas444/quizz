@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../../redux/quizSlice';
@@ -13,6 +14,8 @@ export const Question = () => {
     if (!currentQuestionId) { return null; }
 
     const question = QUESTIONS.find(question => question.id === currentQuestionId);
+
+    question.options = shuffle(question.options);
 
     const saveAnswer = (selectedAnswerId) => {
         const newQuizData = quizData.map(item => item.questionId === currentQuestionId ? {

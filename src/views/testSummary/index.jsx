@@ -6,9 +6,9 @@ import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 import { Score } from './Score';
-import { Result } from './Result';
+import { Summary } from './Summary';
 
-export const ResultView = () => {
+export const SummaryView = () => {
 
   const { isCompleted } = useSelector((state) => state.quiz);
 
@@ -27,7 +27,7 @@ export const ResultView = () => {
           {isCompleted && (
             <div>
               <Score />
-              <Result />
+              <Summary />
               <Button
                 className="btn btn-primary mt-3"
                 onClick={() => startQuiz()}

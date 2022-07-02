@@ -1,8 +1,8 @@
 {
   "name": "quizz",
+  "homepage": "https://kas444.github.io/quizz/",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://kas444.github.io/quizz",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages master -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

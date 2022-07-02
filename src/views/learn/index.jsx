@@ -4,6 +4,7 @@ import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions, quizSelectors } from '../../redux/quizSlice';
 import { LearningQuestion } from './LearningQuestion';
+import { useNavigate } from "react-router-dom";
 
 export const LearnView = () => {
   useEffect(() => {
@@ -17,6 +18,8 @@ export const LearnView = () => {
     currentQuestionId,
     questionsAsked,
   } = useSelector(quizSelectors.rootSelector);
+
+  const navigate = useNavigate();
 
   const answerId = useSelector(quizSelectors.selectAnswerId);
 
@@ -55,10 +58,8 @@ export const LearnView = () => {
 
                 {questionsAsked === data.length && (
                   <>
-                    <Button className="btn btn-success" onClick={() => {
-                      location.reload();
-                    }}>
-                      Chce jeszcze raz!</Button>
+                    <Button className="btn btn-success" onClick={() => navigate("../")}>
+                      Home</Button>
                   </>
                 )}
 

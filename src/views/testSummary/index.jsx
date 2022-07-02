@@ -20,7 +20,7 @@ export const TestSummaryView = () => {
               <Summary />
               <Button
                 className="btn btn-primary mb-3"
-                onClick={() => navigate("../quizz/test")}
+                onClick={() => navigate("../test")}
               >
                 <span role="img" aria-label="rocket">🚀 </span>
                 Nowy quiz

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import QUESTIONS from '../../../api/data';
-import { useDispatch } from 'react-redux';
-import { quizActions } from '../../../redux/quizSlice';
+import { quizActions, quizSelectors } from '../../../redux/quizSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const CheckAnswer = ({ questionId, answerId }) => {
-  const question = QUESTIONS.find(question => question.id === questionId);
+  const question = useSelector(quizSelectors.selectCurrentQuestion);
+
   const answer = question.options.filter(option => option.id === answerId)[0].label;
   const isCorrect = question.correctOptionId === answerId;
 

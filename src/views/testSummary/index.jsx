@@ -2,11 +2,12 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button } from '../../components/Button';
 import { useSelector } from 'react-redux';
+import { quizSelectors } from '../../redux/quizSlice';
 import { Score } from './Score';
 import { Summary } from './Summary';
 
 export const TestSummaryView = () => {
-  const { isCompleted } = useSelector((state) => state.quiz);
+  const { isCompleted } = useSelector(quizSelectors.rootSelector);
   const navigate = useNavigate();
 
   return (

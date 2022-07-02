@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
-
-import QUESTIONS from '../../../api/data';
+import React from 'react';
 import { CheckAnswer } from '../CheckAnswer';
+import { quizSelectors } from '../../../redux/quizSlice';
+import { useSelector } from 'react-redux';
 
 export const Result = ({ questionId, answerId, index }) => {
-
-  const question = QUESTIONS.find(question => question.id === questionId);
+  const question = useSelector((state) => quizSelectors.selectQuestion(state, questionId));
 
   return (
     <div key={index} className="card mt-3">

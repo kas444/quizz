@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../api/data';
-import { useNavigate } from "react-router-dom";
 import { Progress } from '../../components/Progress';
 import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { quizActions } from '../../redux/quizSlice';
+import { quizActions, quizSelectors } from '../../redux/quizSlice';
 import { LearningQuestion } from './LearningQuestion';
 
 export const LearnView = () => {
@@ -18,10 +17,9 @@ export const LearnView = () => {
     quizData,
     currentQuestionId,
     questionsAsked,
-  } = useSelector((state) => state.quiz);
+  } = useSelector(quizSelectors.rootSelector);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const startQuiz = () => {
     const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import shuffle from 'lodash/shuffle';
-import QUESTIONS from '../../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
-import { quizActions } from '../../../redux/quizSlice';
+import { quizActions, quizSelectors } from '../../../redux/quizSlice';
 
 export const LearningQuestion = () => {
   const [shuffledOptions, shuffleOptions] = useState([]);
-  const { currentQuestionId, quizData } = useSelector((state) => state.quiz);
-  const dispatch = useDispatch();
+  const { currentQuestionId } = useSelector(quizSelectors.rootSelector);
+  const quizData = useSelector(quizSelectors.selectQuizData);
+  const question = useSelector(quizSelectors.selectCurrentQuestion);
+  const answerId = useSelector(quizSelectors.selectAnswerId);
 
-  const question = QUESTIONS.find(question => question.id === currentQuestionId);
-  const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (question) shuffleOptions(shuffle(question.options));

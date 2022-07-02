@@ -6,7 +6,7 @@ import { Progress } from '../../components/Progress';
 import { Button } from '../../components/Button';
 import { Question } from './Question';
 import { useSelector, useDispatch } from 'react-redux';
-import { quizActions } from '../../redux/quizSlice';
+import { quizActions, quizSelectors } from '../../redux/quizSlice';
 
 export const TestView = () => {
 
@@ -19,7 +19,7 @@ export const TestView = () => {
     quizData,
     currentQuestionId,
     questionsAsked,
-  } = useSelector((state) => state.quiz);
+  } = useSelector(quizSelectors.rootSelector);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

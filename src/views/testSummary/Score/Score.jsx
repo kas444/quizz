@@ -1,9 +1,11 @@
 import React from 'react';
 import QUESTIONS from '../../../api/data';
 import { useSelector } from 'react-redux';
+import { quizSelectors } from '../../../redux/quizSlice';
+
 
 export const Score = () => {
-  const { score } = useSelector((state) => state.quiz);
+  const { score } = useSelector(quizSelectors.rootSelector);
 
   if (score > QUESTIONS.length) {
     console.error('Score cannot be greater than number of questions');

@@ -8,7 +8,7 @@ import { Question } from './Question';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 
-export const QuestionView = () => {
+export const TestView = () => {
 
   useEffect(() => {
     startQuiz();
@@ -17,7 +17,6 @@ export const QuestionView = () => {
   const {
     isCompleted,
     quizData,
-    selectedAnswer,
     currentQuestionId,
     questionsAsked,
   } = useSelector((state) => state.quiz);
@@ -29,19 +28,7 @@ export const QuestionView = () => {
     dispatch(quizActions.initializeQuiz(data));
   };
 
-  const goToNextQuestion = (selectedAnswerId) => {
-
-    const updatedQuizData = quizData.map(item => item.questionId === currentQuestionId ? {
-      questionId: currentQuestionId,
-      answerId: selectedAnswer
-    } : item);
-    dispatch(quizActions.addAnswer(updatedQuizData));
-
-    const correctAnswerId = QUESTIONS.filter(item => item.id === currentQuestionId)[0].correctOptionId;
-
-    if (selectedAnswerId === correctAnswerId) {
-      dispatch(quizActions.incrementScore());
-    }
+  const goToNextQuestion = () => {
 
     if (questionsAsked === QUESTIONS.length) {
       dispatch(quizActions.completeQuiz());
@@ -60,6 +47,8 @@ export const QuestionView = () => {
     dispatch(quizActions.goBack(chosenAnswer));
   };
 
+  const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
+  console.log({ answerId })
 
   return (
     <>
@@ -83,18 +72,19 @@ export const QuestionView = () => {
                 )}
 
                 {questionsAsked === QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? goToNextQuestion(selectedAnswer) : null}>zakończ quiz</Button>
+                  <Button className="btn btn-success" onClick={() => answerId != null ? goToNextQuestion() : null}>zakończ quiz</Button>
                 )}
 
                 {questionsAsked != QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => selectedAnswer != null ? goToNextQuestion(selectedAnswer) : null}>dalej</Button>
+                  <Button className="btn btn-success" onClick={() => answerId != null ? goToNextQuestion() : null}>dalej</Button>
                 )}
 
               </div>
             </div>
           </div>
         </div>
-      )}
+      )
+      }
     </>
   );
 };

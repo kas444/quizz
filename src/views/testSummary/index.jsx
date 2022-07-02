@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../api/data';
@@ -6,15 +6,15 @@ import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../redux/quizSlice';
 import { Score } from './Score';
-import { Result } from './Result';
+import { Summary } from './Summary';
 
-export const ResultView = () => {
+export const SummaryView = () => {
 
   const { isCompleted } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
 
-  const startQuiz = () => {
+  const startNewQuiz = () => {
     const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
     dispatch(quizActions.initializeQuiz(data));
   };
@@ -27,10 +27,11 @@ export const ResultView = () => {
           {isCompleted && (
             <div>
               <Score />
-              <Result />
+              <Summary />
               <Button
                 className="btn btn-primary mt-3"
-                onClick={() => startQuiz()}
+                onClick={startNewQuiz}
+              // onClick={() => navigate("/test")}
               >
                 <span role="img" aria-label="rocket">🚀</span>
                 Nowy quiz

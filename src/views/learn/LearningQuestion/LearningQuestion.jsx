@@ -4,7 +4,7 @@ import QUESTIONS from '../../../api/data';
 import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../../redux/quizSlice';
 
-export const Question = () => {
+export const LearningQuestion = () => {
   const [shuffledOptions, shuffleOptions] = useState([]);
   const { currentQuestionId, quizData } = useSelector((state) => state.quiz);
   const dispatch = useDispatch();
@@ -27,6 +27,8 @@ export const Question = () => {
     dispatch(quizActions.updateQuizData(newQuizData));
   };
 
+  const isCorrect = question.correctOptionId === answerId;
+
   return (
     <>
       <div className="question">{question.question}</div>
@@ -35,7 +37,7 @@ export const Question = () => {
           <button
             key={idx}
             onClick={() => saveAnswer(id)}
-            className={`
+            className={` P
               list-group-item list-group-item-action
               ${answerId === id ? "active" : ""}
             `}
@@ -43,6 +45,28 @@ export const Question = () => {
             {label}
           </button>
         ))}
+      </div>
+      <div
+        className={
+          "card-footer text-white " +
+          (isCorrect ? "bg-success" : "bg-danger")
+        }
+      >
+        {answerId != null && (
+          <>
+            {isCorrect ? (
+              <div>
+                <span role="img" aria-label="smiling">🙂 </span>
+                Correct
+              </div>
+            ) : (
+              <div>
+                <span role="img" aria-label="disappointed">😞 </span>
+                Wrong answer
+              </div>
+            )}
+          </>
+        )}
       </div>
     </>
   );

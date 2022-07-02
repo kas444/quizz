@@ -17,3 +17,12 @@ body {
 .button {
   margin: 20px;
 }
+
+.navstyle {
+  background-color: aliceblue;
+}
+
+.correctAnswer {
+  font-weight: bold;
+  background-color: honeydew;
+}

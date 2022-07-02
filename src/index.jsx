@@ -16,7 +16,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/quizz" element={<App />}>
+        <Route path="/quizz/" element={<App />}>
           <Route path="/quizz/nauka" element={<LearnView />} />
           <Route path="/quizz/test" element={<TestView />} />
           <Route path="/quizz/testSummary" element={<TestSummaryView />} />

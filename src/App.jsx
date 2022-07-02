@@ -18,7 +18,7 @@ export default function App() {
           <nav className="navstyle nav nav-pills mb-4">
             <li className="nav-item">
               <NavLink
-                to="/"
+                to="/quizz/"
                 className={'nav-link'}
                 activeclassname={'active'}
               >
@@ -26,14 +26,14 @@ export default function App() {
               </NavLink>
             </li>
             <NavLink
-              to="/nauka"
+              to="/quizz/nauka"
               className={'nav-link'}
               activeclassname={'active'}
             >
               Nauka
             </NavLink>
             <NavLink
-              to="/test"
+              to="/quizz/test"
               className={'nav-link'}
               activeclassname={'active'}
             >
@@ -43,20 +43,20 @@ export default function App() {
 
           <Outlet />
 
-          {pathname === '/' && (
+          {pathname === '/quizz/' && (
             <>
               <div className="d-flex justify-content-center">
                 <span>Aby rozpocząć wybierz tryb: </span>
                 <Button
                   className="btn btn-primary btn-lg"
-                  onClick={() => navigate("../nauka")}
+                  onClick={() => navigate("../quizz/nauka")}
                 >
                   <span role="img" aria-label="book">📖  </span>
                   Nauka
                 </Button>
                 <Button
                   className="btn btn-primary btn-lg"
-                  onClick={() => navigate("../test")}
+                  onClick={() => navigate("../quizz/test")}
                 >
                   <span role="img" aria-label="fire">🔥  </span>
                   Test

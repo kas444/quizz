@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import shuffle from 'lodash/shuffle';
-import QUESTIONS from '../../api/data';
 import { useNavigate } from "react-router-dom";
 import { Progress } from '../../components/Progress';
 import { Button } from '../../components/Button';
@@ -15,6 +13,7 @@ export const TestView = () => {
   }, []);
 
   const {
+    data,
     isCompleted,
     quizData,
     currentQuestionId,
@@ -24,9 +23,10 @@ export const TestView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const answerId = useSelector(quizSelectors.selectAnswerId);
+
   const startQuiz = () => {
-    const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
-    dispatch(quizActions.initializeQuiz(data));
+    dispatch(quizActions.initializeQuiz());
   };
 
   const returnToPreviousQuestion = () => {
@@ -36,13 +36,11 @@ export const TestView = () => {
     dispatch(quizActions.goBack(chosenAnswer));
   };
 
-  const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
-
   return (
     <>
       {!isCompleted && (
         <div>
-          <Progress question={questionsAsked} quizLength={QUESTIONS.length} />
+          <Progress question={questionsAsked} quizLength={data.length} />
           <div className="row justify-content-center">
             <div className="col-lg-8 col-md-10 col-sm-12">
 
@@ -59,7 +57,7 @@ export const TestView = () => {
                   <Button className="btn btn-primary" onClick={() => returnToPreviousQuestion()}>wstecz</Button>
                 )}
 
-                {questionsAsked === QUESTIONS.length && (
+                {questionsAsked === data.length && (
                   <Button className="btn btn-success" onClick={() => {
                     answerId != null ? dispatch(quizActions.completeQuiz()) : null
                     navigate("../testSummary")
@@ -67,7 +65,7 @@ export const TestView = () => {
                     zakończ quiz</Button>
                 )}
 
-                {questionsAsked != QUESTIONS.length && (
+                {questionsAsked != data.length && (
                   <Button className="btn btn-success" onClick={() => answerId != null ? dispatch(quizActions.goNext()) : null}>dalej</Button>
                 )}
 

@@ -3,7 +3,7 @@ import { quizActions, quizSelectors } from '../../../redux/quizSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 export const CheckAnswer = ({ questionId, answerId }) => {
-  const question = useSelector(quizSelectors.selectCurrentQuestion);
+  const question = useSelector((state) => quizSelectors.selectQuestion(state, questionId));
 
   const answer = question.options.filter(option => option.id === answerId)[0].label;
   const isCorrect = question.correctOptionId === answerId;

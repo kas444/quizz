@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import shuffle from 'lodash/shuffle';
-import QUESTIONS from '../../api/data';
 import { Progress } from '../../components/Progress';
 import { Button } from '../../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,16 +11,18 @@ export const LearnView = () => {
   }, []);
 
   const {
+    data,
     isCompleted,
     quizData,
     currentQuestionId,
     questionsAsked,
   } = useSelector(quizSelectors.rootSelector);
 
+  const answerId = useSelector(quizSelectors.selectAnswerId);
+
   const dispatch = useDispatch();
 
   const startQuiz = () => {
-    const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
     dispatch(quizActions.initializeQuiz(data));
   };
 
@@ -32,13 +32,11 @@ export const LearnView = () => {
     dispatch(quizActions.goBack(chosenAnswer));
   };
 
-  const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
-
   return (
     <>
       {!isCompleted && (
         <div>
-          <Progress question={questionsAsked} quizLength={QUESTIONS.length} />
+          <Progress question={questionsAsked} quizLength={data.length} />
           <div className="row justify-content-center">
             <div className="col-lg-8 col-md-10 col-sm-12">
 
@@ -55,7 +53,7 @@ export const LearnView = () => {
                   <Button className="btn btn-primary" onClick={() => returnToPreviousQuestion()}>wstecz</Button>
                 )}
 
-                {questionsAsked === QUESTIONS.length && (
+                {questionsAsked === data.length && (
                   <>
                     <Button className="btn btn-success" onClick={() => {
                       location.reload();
@@ -64,7 +62,7 @@ export const LearnView = () => {
                   </>
                 )}
 
-                {questionsAsked != QUESTIONS.length && (
+                {questionsAsked != data.length && (
                   <Button className="btn btn-success" onClick={() => answerId != null ? dispatch(quizActions.goNext()) : null}>dalej</Button>
                 )}
 

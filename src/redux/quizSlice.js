@@ -1,7 +1,9 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import QUESTIONS from '../api/data';
+import shuffle from 'lodash/shuffle';
 
 const initialState = {
+  data: QUESTIONS,
   isCompleted: false,
   score: 0,
   quizData: [],
@@ -13,11 +15,12 @@ export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
-    initializeQuiz: (state, action) => {
+    initializeQuiz: (state) => {
+      const shuffledData = shuffle(state.data.map(question => ({ questionId: question.id, answerId: null })));
       state.score = 0;
       state.isCompleted = false;
-      state.quizData = action.payload;
-      state.currentQuestionId = action.payload[0].questionId;
+      state.quizData = shuffledData;
+      state.currentQuestionId = shuffledData[0].questionId;
       state.questionsAsked = 1;
     },
     incrementScore: (state) => {
@@ -51,12 +54,12 @@ export const quizSelectors = {
   selectQuizData: createSelector(rootSelector, (state) => state.quizData),
   selectCurrentQuestion: createSelector(
     rootSelector,
-    (state) => QUESTIONS.find(question => question.id === state.currentQuestionId),
+    (state) => state.data.find(question => question.id === state.currentQuestionId),
   ),
   selectQuestion: createSelector(
     rootSelector,
     (_, questionId) => questionId,
-    (state, questionId) => QUESTIONS.find(question => question.id === questionId),
+    (state, questionId) => state.data.find(question => question.id === questionId),
   ),
   selectAnswerId: createSelector(
     rootSelector,

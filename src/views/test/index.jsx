@@ -47,6 +47,9 @@ export const TestView = () => {
     dispatch(quizActions.goBack(chosenAnswer));
   };
 
+  const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
+  console.log({ answerId })
+
   return (
     <>
       {!isCompleted && (
@@ -69,18 +72,19 @@ export const TestView = () => {
                 )}
 
                 {questionsAsked === QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => goToNextQuestion()}>zakończ quiz</Button>
+                  <Button className="btn btn-success" onClick={() => answerId != null ? goToNextQuestion() : null}>zakończ quiz</Button>
                 )}
 
                 {questionsAsked != QUESTIONS.length && (
-                  <Button className="btn btn-success" onClick={() => goToNextQuestion()}>dalej</Button>
+                  <Button className="btn btn-success" onClick={() => answerId != null ? goToNextQuestion() : null}>dalej</Button>
                 )}
 
               </div>
             </div>
           </div>
         </div>
-      )}
+      )
+      }
     </>
   );
 };

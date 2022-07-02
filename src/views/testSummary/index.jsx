@@ -1,39 +1,28 @@
 import React from 'react';
-
-import shuffle from 'lodash/shuffle';
-import QUESTIONS from '../../api/data';
+import { useNavigate } from "react-router-dom";
 import { Button } from '../../components/Button';
-import { useSelector, useDispatch } from 'react-redux';
-import { quizActions } from '../../redux/quizSlice';
+import { useSelector } from 'react-redux';
+import { quizSelectors } from '../../redux/quizSlice';
 import { Score } from './Score';
 import { Summary } from './Summary';
 
-export const SummaryView = () => {
-
-  const { isCompleted } = useSelector((state) => state.quiz);
-
-  const dispatch = useDispatch();
-
-  const startNewQuiz = () => {
-    const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
-    dispatch(quizActions.initializeQuiz(data));
-  };
+export const TestSummaryView = () => {
+  const { isCompleted } = useSelector(quizSelectors.rootSelector);
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="row justify-content-center">
         <div className="col-lg-8 col-md-10 col-sm-12">
-
           {isCompleted && (
             <div>
               <Score />
               <Summary />
               <Button
-                className="btn btn-primary mt-3"
-                onClick={startNewQuiz}
-              // onClick={() => navigate("/test")}
+                className="btn btn-primary mb-3"
+                onClick={() => navigate("../test")}
               >
-                <span role="img" aria-label="rocket">🚀</span>
+                <span role="img" aria-label="rocket">🚀 </span>
                 Nowy quiz
               </Button>
             </div>

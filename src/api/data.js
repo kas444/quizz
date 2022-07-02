@@ -1,70 +1,116 @@
 export default [
   {
     id: 1,
-    question: '1.Inside which HTML element do we put the JavaScript?',
+    question: 'W którym wieku powstał Corpus Luris Cyvilis?',
     correctOptionId: 1,
     options: [
       {
         id: 1,
-        label: '1.<script>',
+        label: '6',
       },
       {
         id: 2,
-        label: '2.<javascript>',
+        label: '12',
       },
       {
         id: 3,
-        label: '3.<js>',
+        label: '4',
       },
       {
         id: 4,
-        label: '4.<scripting>',
+        label: '8',
       },
     ],
   },
   {
     id: 2,
-    question: "2. How can you detect the client's browser name?",
-    correctOptionId: 2,
+    question: "Prawem barbarzyńskim posługiwał się lud",
+    correctOptionId: 1,
     options: [
       {
         id: 1,
-        label: '1.browser.name',
+        label: 'ostrogotów',
       },
       {
         id: 2,
-        label: '2.client.navName',
+        label: 'franków',
       },
       {
         id: 3,
-        label: '3.navigator.appName',
+        label: 'hunów',
       },
       {
         id: 4,
-        label: '4.navigator.navName',
+        label: 'lombardów',
       },
     ],
   },
   {
     id: 3,
-    question: '3.How do you round the number 7.25, to the nearest integer?',
+    question: 'W którym roku powstała Deklaracja Praw Człowieka i Obywatela?',
     correctOptionId: 3,
     options: [
       {
         id: 1,
-        label: '1.rnd(7.25)',
+        label: '1918',
       },
       {
         id: 2,
-        label: '2.Math.round(7.25)',
+        label: '1807',
       },
       {
         id: 3,
-        label: '3.round(7.25)',
+        label: '1789',
       },
       {
         id: 4,
-        label: '4.Math.rnd(7.25)',
+        label: '1730',
+      },
+    ],
+  },
+  {
+    id: 4,
+    question: 'Według której doktryny prawa, prawo ma mieć wewnętrzną moralność',
+    correctOptionId: 2,
+    options: [
+      {
+        id: 1,
+        label: 'pozytywizmu prawniczego',
+      },
+      {
+        id: 2,
+        label: 'prawa natury',
+      },
+      {
+        id: 3,
+        label: 'realizmu prawniczego',
+      },
+      {
+        id: 4,
+        label: 'marksistowskiej',
+      },
+    ],
+  },
+  {
+    id: 5,
+    question: 'W którym roku powstał pierwszy Trybunał Państwa czyli 1 w Europie sąd stojący na straży konstytucji',
+    correctOptionId: 4,
+    options: [
+      {
+        id: 1,
+        label: '1814',
+      },
+      {
+        id: 2,
+        label: '1820',
+      },
+      {
+        id: 3,
+        label: '1756',
+      },
+      {
+        id: 4,
+        label: '1867',
       },
     ],
   },

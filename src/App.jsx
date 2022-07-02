@@ -1,9 +1,11 @@
 import React from 'react';
 import './style.css';
-import { TestView } from './views/test';
-import { SummaryView } from './views/testSummary';
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Button } from './components/Button';
 
 export default function App() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -13,11 +15,55 @@ export default function App() {
         </header>
 
         <main className="container mb-4">
-          {/* react-router */}
-          {/* <Router> */}
-          <TestView />
-          <SummaryView />
-          {/* </Router> */}
+          <nav className="navstyle nav nav-pills mb-4">
+            <li className="nav-item">
+              <NavLink
+                to="/"
+                className={'nav-link'}
+                activeclassname={'active'}
+              >
+                Home
+              </NavLink>
+            </li>
+            <NavLink
+              to="/nauka"
+              className={'nav-link'}
+              activeclassname={'active'}
+            >
+              Nauka
+            </NavLink>
+            <NavLink
+              to="/test"
+              className={'nav-link'}
+              activeclassname={'active'}
+            >
+              Test
+            </NavLink>
+          </nav>
+
+          <Outlet />
+
+          {pathname === '/' && (
+            <>
+              <div className="d-flex justify-content-center">
+                <span>Aby rozpocząć wybierz tryb: </span>
+                <Button
+                  className="btn btn-primary btn-lg"
+                  onClick={() => navigate("../nauka")}
+                >
+                  <span role="img" aria-label="book">📖  </span>
+                  Nauka
+                </Button>
+                <Button
+                  className="btn btn-primary btn-lg"
+                  onClick={() => navigate("../test")}
+                >
+                  <span role="img" aria-label="fire">🔥  </span>
+                  Test
+                </Button>
+              </div>
+            </>
+          )}
         </main>
       </div>
     </>

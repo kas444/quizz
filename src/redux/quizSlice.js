@@ -1,6 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import QUESTIONS from '../api/data';
+import shuffle from 'lodash/shuffle';
 
 const initialState = {
+  data: QUESTIONS,
   isCompleted: false,
   score: 0,
   quizData: [],
@@ -12,11 +15,12 @@ export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
-    initializeQuiz: (state, action) => {
+    initializeQuiz: (state) => {
+      const shuffledData = shuffle(state.data.map(question => ({ questionId: question.id, answerId: null })));
       state.score = 0;
       state.isCompleted = false;
-      state.quizData = action.payload;
-      state.currentQuestionId = action.payload[0].questionId;
+      state.quizData = shuffledData;
+      state.currentQuestionId = shuffledData[0].questionId;
       state.questionsAsked = 1;
     },
     incrementScore: (state) => {
@@ -25,12 +29,12 @@ export const quizSlice = createSlice({
     updateQuizData: (state, action) => {
       state.quizData = action.payload;
     },
-    goNext: (state, action) => {
+    goNext: (state) => {
       const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
       state.currentQuestionId = state.quizData[index + 1].questionId;
       state.questionsAsked += 1;
     },
-    goBack: (state, action) => {
+    goBack: (state) => {
       const index = state.quizData.findIndex((i) => i.questionId === state.currentQuestionId)
       state.currentQuestionId = state.quizData[index - 1].questionId;
       state.questionsAsked -= 1;
@@ -42,5 +46,33 @@ export const quizSlice = createSlice({
 });
 
 export const quizActions = quizSlice.actions;
+
+const rootSelector = (state) => state.quiz;
+
+export const quizSelectors = {
+  rootSelector,
+  selectQuizData: createSelector(rootSelector, (state) => state.quizData),
+  selectCurrentQuestion: createSelector(
+    rootSelector,
+    (state) => state.data.find(question => question.id === state.currentQuestionId),
+  ),
+  selectQuestion: createSelector(
+    rootSelector,
+    (_, questionId) => questionId,
+    (state, questionId) => state.data.find(question => question.id === questionId),
+  ),
+  selectAnswerId: createSelector(
+    rootSelector,
+    (state) => state.quizData.find(item => item.questionId === state.currentQuestionId)?.answerId,
+  ),
+  // z parametrem
+  // const question2 = useSelector((state) => quizSelectors.selectCurrentQuestion(state, currentQuestionId));
+
+  // selectCurrentQuestion: createSelector(
+  //   rootSelector,
+  //   (_, currentQuestionId) => currentQuestionId,
+  //   (state, currentQuestionId) => QUESTIONS.find(question => question.id === currentQuestionId),
+  // ),
+};
 
 export default quizSlice.reducer;

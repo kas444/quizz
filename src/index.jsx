@@ -1,7 +1,11 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createRoot } from 'react-dom/client';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import { TestView } from './views/test';
+import { TestSummaryView } from './views/testSummary';
+import { LearnView } from './views/learn';
 
 import App from './App';
 
@@ -10,6 +14,14 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="nauka" element={<LearnView />} />
+          <Route path="test" element={<TestView />} />
+          <Route path="testSummary" element={<TestSummaryView />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );

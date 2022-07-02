@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../api/data';
@@ -14,7 +14,7 @@ export const SummaryView = () => {
 
   const dispatch = useDispatch();
 
-  const startQuiz = () => {
+  const startNewQuiz = () => {
     const data = shuffle(QUESTIONS.map(question => ({ questionId: question.id, answerId: null })));
     dispatch(quizActions.initializeQuiz(data));
   };
@@ -30,7 +30,8 @@ export const SummaryView = () => {
               <Summary />
               <Button
                 className="btn btn-primary mt-3"
-                onClick={() => startQuiz()}
+                onClick={startNewQuiz}
+              // onClick={() => navigate("/test")}
               >
                 <span role="img" aria-label="rocket">🚀</span>
                 Nowy quiz

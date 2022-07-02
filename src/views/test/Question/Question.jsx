@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import shuffle from 'lodash/shuffle';
 import QUESTIONS from '../../../api/data';
@@ -6,16 +6,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { quizActions } from '../../../redux/quizSlice';
 
 export const Question = () => {
-
+    const [shuffledOptions, shuffleOptions] = useState([]);
     const { currentQuestionId, quizData } = useSelector((state) => state.quiz);
     const dispatch = useDispatch();
-    const [isActive, setIsActive] = useState(false);
-
-    if (!currentQuestionId) { return null; }
 
     const question = QUESTIONS.find(question => question.id === currentQuestionId);
+    const answerId = quizData.find(item => item.questionId === currentQuestionId)?.answerId;
 
-    question.options = shuffle(question.options);
+    useEffect(() => {
+        if (question) shuffleOptions(shuffle(question.options));
+    }, [question])
+
+    if (!question) { return null; }
 
     const saveAnswer = (selectedAnswerId) => {
         const newQuizData = quizData.map(item => item.questionId === currentQuestionId ? {
@@ -26,13 +28,11 @@ export const Question = () => {
         dispatch(quizActions.updateQuizData(newQuizData));
     };
 
-    const answerId = quizData.find(item => item.questionId === currentQuestionId).answerId;
-
     return (
         <>
             <div className="question">{question.question}</div>
             <div className="list-group">
-                {question.options.map(({ id, label }, idx) => (
+                {shuffledOptions.map(({ id, label }, idx) => (
                     <button
                         key={idx}
                         onClick={() => saveAnswer(id)}

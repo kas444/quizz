@@ -13,8 +13,11 @@ export default function App() {
         </header>
 
         <main className="container mb-4">
+          {/* react-router */}
+          {/* <Router> */}
           <TestView />
           <SummaryView />
+          {/* </Router> */}
         </main>
       </div>
     </>
